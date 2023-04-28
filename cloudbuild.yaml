@@ -1,0 +1,45 @@
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud run deploy joi-news-service-newsfeed \
+        --platform=managed \
+        --port=8081 \
+        --image=us-central1-docker.pkg.dev/${PROJECT_ID}/joi-news/newsfeed:latest \
+        --allow-unauthenticated \
+        --region=us-central1
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud run deploy joi-news-service-quotes \
+        --platform=managed \
+        --port=8082 \
+        --image=us-central1-docker.pkg.dev/${PROJECT_ID}/joi-news/quotes:latest \
+        --allow-unauthenticated \
+        --region=us-central1
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        export QUOTE_SERVICE_URL="$$(gcloud run services list --region=us-central1 --filter=name="joi-news-service-quotes" --format="value(address)"):443"
+        export NEWSFEED_SERVICE_URL="$$(gcloud run services list --region=us-central1 --filter=name="joi-news-service-newsfeed" --format="value(address)"):443"
+        export STATIC_URL="https://storage.googleapis.com/${PROJECT_ID}-infra-static-pages" 
+        gcloud run deploy joi-news-service-frontend \
+        --platform=managed \
+        --port=8080 \
+        --set-env-vars=NEWSFEED_SERVICE_TOKEN=$${NEWSFEED_SERVICE_TOKEN},QUOTE_SERVICE_URL=$${QUOTE_SERVICE_URL},NEWSFEED_SERVICE_URL=$${NEWSFEED_SERVICE_URL},STATIC_URL=$${STATIC_URL} \
+        --image=us-central1-docker.pkg.dev/${PROJECT_ID}/joi-news/front_end:latest \
+        --allow-unauthenticated \
+        --region=us-central1
+    secretEnv:
+      - 'NEWSFEED_SERVICE_TOKEN'
+availableSecrets:
+  secretManager:
+    - versionName: projects/${PROJECT_ID}/secrets/newsfeed-service-token/versions/1
+      env: 'NEWSFEED_SERVICE_TOKEN'
+

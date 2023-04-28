@@ -103,7 +103,12 @@ _deploy_site:
 deploy_site:
 	dojo "make _deploy_site"
 
-news.infra:
+_cloud_build_run:
+	gcloud auth activate-service-account --key-file infra/.interviewee-creds.json
+	gcloud build submit .
+
+cloud_build_run:
+	dojo "make _cloud_build_run"
 
 deploy_interview:
 	$(MAKE) apps
@@ -112,6 +117,7 @@ deploy_interview:
 	$(MAKE) push
 	$(MAKE) news.infra
 	$(MAKE) deploy_site
+	$(MAKE) cloud_build_run
 
 destroy_interview:
 	$(MAKE) news.deinfra

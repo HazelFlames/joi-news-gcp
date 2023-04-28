@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "gcs" {
-    prefix      = "news"
+    prefix      = "base"
     credentials = "../.interviewee-creds.json"
   }
 }

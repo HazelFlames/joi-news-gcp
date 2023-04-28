@@ -12,7 +12,7 @@ resource "google_storage_bucket" "news" {
 
 resource "google_storage_bucket_iam_binding" "news" {
   bucket = google_storage_bucket.news.name
-  role = "roles/storage.objectViewer"
+  role   = "roles/storage.objectViewer"
   members = [
     "allUsers"
   ]
