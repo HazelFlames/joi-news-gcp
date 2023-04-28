@@ -105,7 +105,7 @@ deploy_site:
 
 _cloud_build_run:
 	gcloud auth activate-service-account --key-file infra/.interviewee-creds.json
-	gcloud build submit .
+	gcloud builds submit .
 
 cloud_build_run:
 	dojo "make _cloud_build_run"
