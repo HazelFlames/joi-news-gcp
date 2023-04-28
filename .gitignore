@@ -13,4 +13,8 @@ pom.xml.asc
 .nrepl-port
 .cpcache/
 
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
 **/secrets.tf
