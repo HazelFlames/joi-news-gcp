@@ -110,6 +110,13 @@ _cloud_build_run:
 cloud_build_run:
 	dojo "make _cloud_build_run"
 
+_cloud_run_delete:
+	gcloud auth activate-service-account --key-file infra/.interviewee-creds.json
+	gcloud run services delete $(addprefix joi-news-service-, $(APPS))
+
+cloud_run_delete:
+	dojo "mmake _cloud_run_delete"
+
 deploy_interview:
 	$(MAKE) apps
 	$(MAKE) base.infra
@@ -120,5 +127,6 @@ deploy_interview:
 	$(MAKE) cloud_build_run
 
 destroy_interview:
+	$(MAKE) cloud_run_delete
 	$(MAKE) news.deinfra
 	$(MAKE) base.deinfra   

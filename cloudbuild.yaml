@@ -29,7 +29,7 @@ steps:
         export QUOTE_SERVICE_URL="$$(gcloud run services list --region=us-central1 --filter=name="joi-news-service-quotes" --format="value(address)"):443"
         export NEWSFEED_SERVICE_URL="$$(gcloud run services list --region=us-central1 --filter=name="joi-news-service-newsfeed" --format="value(address)"):443"
         export STATIC_URL="https://storage.googleapis.com/${PROJECT_ID}-infra-static-pages" 
-        gcloud run deploy joi-news-service-frontend \
+        gcloud run deploy joi-news-service-front-end \
         --platform=managed \
         --port=8080 \
         --set-env-vars=NEWSFEED_SERVICE_TOKEN=$${NEWSFEED_SERVICE_TOKEN},QUOTE_SERVICE_URL=$${QUOTE_SERVICE_URL},NEWSFEED_SERVICE_URL=$${NEWSFEED_SERVICE_URL},STATIC_URL=$${STATIC_URL} \
