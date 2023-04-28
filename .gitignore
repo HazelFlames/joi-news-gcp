@@ -12,9 +12,8 @@ pom.xml.asc
 .lein-failures
 .nrepl-port
 .cpcache/
-
-.terraform/
-terraform.tfstate
-terraform.tfstate.backup
-terraform.tfvars
+**/.terraform/
+**/terraform.tfstate
+**/terraform.tfstate.backup
+**/terraform.tfvars
 **/secrets.tf

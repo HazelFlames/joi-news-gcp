@@ -27,3 +27,8 @@ resource "google_project_service" "cloud_run" {
   project = var.project
   service = "run.googleapis.com"
 }
+
+resource "google_project_service" "secret_manager" {
+  project = var.project
+  service = "secretmanager.googleapis.com"
+}
