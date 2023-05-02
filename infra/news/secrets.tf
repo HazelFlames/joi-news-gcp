@@ -7,5 +7,5 @@ resource "google_secret_manager_secret" "newsfeed_service_token" {
 
 resource "google_secret_manager_secret_version" "newsfeed_service_token_1" {
   secret      = google_secret_manager_secret.newsfeed_service_token.id
-  secret_data = ""
+  secret_data = "T1&eWbYXNWG1w1^YGKDPxAWJ@^et^&kX"
 }

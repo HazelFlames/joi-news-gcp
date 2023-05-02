@@ -9,7 +9,7 @@ APP_JARS=$(addprefix $(BUILD_DIR)/, $(addsuffix .jar, $(APPS)))
 DOCKER_TARGETS=$(addsuffix .docker, $(APPS))
 DOCKER_PUSH_TARGETS=$(addsuffix .push, $(APPS))
 _DOCKER_PUSH_TARGETS=$(addprefix _, $(DOCKER_PUSH_TARGETS))
-GCR_URL=gcr.io
+GCR_URL=us-central1-docker.pkg.dev
 
 default: deploy_interview
 
@@ -115,7 +115,7 @@ _cloud_run_delete:
 	gcloud run services delete $(addprefix joi-news-service-, $(APPS))
 
 cloud_run_delete:
-	dojo "mmake _cloud_run_delete"
+	dojo "make _cloud_run_delete"
 
 deploy_interview:
 	$(MAKE) apps
